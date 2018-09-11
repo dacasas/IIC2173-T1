@@ -1,1 +1,0 @@
-FLASK_APP=t1-iic2173.py
