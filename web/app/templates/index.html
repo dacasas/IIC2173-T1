@@ -1,0 +1,30 @@
+<html>
+
+<head>
+    <title>Posts</title>
+</head>
+
+<body>    
+    {% block content %}
+    <h1>Post</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.comment.label }}<br>
+            {{ form.comment(size=64) }}
+            {% for error in form.comment.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+    <br>
+    <ul>
+        {% for comment in comments %}
+        <li>{{ comment.comment }}, {{ comment.ip }}, {{ comment.timestamp }}</li>
+        {% endfor %}
+    </ul>
+    {% endblock %}
+</body>
+
+</html>
