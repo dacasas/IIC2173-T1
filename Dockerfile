@@ -1,9 +1,12 @@
-FROM ubuntu:latest
-MAINTAINER Rajdeep Dua "dua_rajdeep@yahoo.com"
-RUN apt-get update -y
-RUN apt-get install -y python-pip python-dev build-essential
-COPY . /app
-WORKDIR /app
+FROM python:3
+
+ENV PYTHONUNBUFFERED 1
+RUN mkdir -p /opt/services/flaskapp/src
+#VOLUME ["/opt/services/flaskapp/src"]
+# We copy the requirements.txt file first to avoid cache invalidations
+COPY requirements.txt /opt/services/flaskapp/src/
+WORKDIR /opt/services/flaskapp/src
 RUN pip install -r requirements.txt
-ENTRYPOINT ["python"]
-CMD ["app.py"]
+COPY . /opt/services/flaskapp/src
+EXPOSE 5090
+CMD flask run
